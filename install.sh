@@ -39,6 +39,8 @@ fi
 webget(){
 	#参数【$1】代表下载目录，【$2】代表在线地址
 	#参数【$3】代表输出显示，【$4】不启用重定向
+	#如果文件已存在则跳过下载
+	[ -f "$1" ] && echo "已经存在,file:$1 url:$2" && result="200" && return
 	if curl --version > /dev/null 2>&1;then
 		[ "$3" = "echooff" ] && progress='-s' || progress='-#'
 		[ -z "$4" ] && redirect='-L' || redirect=''
